@@ -16,10 +16,11 @@ def read_portfolio(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
-            holding = {'name': row[0],
-                       'shares': int(row[1]),
-                       'price': float(row[2])}
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            holding = {'name': record['name'],
+                       'shares': int(record['shares']),
+                       'price': float(record['price'])}
             portfolio.append(holding)
     return portfolio
 
@@ -57,10 +58,7 @@ report = make_report(portfolio, prices)
 headers = ('Name', 'Shares', 'Price', 'Change')
 
 print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
-print("-" * 10, end=' ')
-print("-" * 10, end=' ')
-print("-" * 10, end=' ')
-print("-" * 10,)
+print(('-' * 10 + ' ') * len(headers))
 
 for name, shares, price, change in report:
     format_price = f"${price:.2f}"
