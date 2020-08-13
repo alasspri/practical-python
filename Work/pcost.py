@@ -1,34 +1,29 @@
 # pcost.py
 #
 # Exercise 1.27
-import csv
+from report import read_portfolio
+
 import sys
 
 
 def portfolio_cost(filename):
     value = 0
-    f = open(filename, 'rt')
-    rows = csv.reader(f)
-    headers = next(rows)
 
-    for rowno, row in enumerate(rows, start=1):
-        record = dict(zip(headers, row))
-        try:
-            nshares = int(record['shares'])
-            shareprice = float(record['price'])
-            value += nshares * shareprice
-        except ValueError:
-            print(f"Row {rowno}: Bad row: {row}")
+    portfolio = read_portfolio(filename)
 
-    f.close()
+    for stock in portfolio:
+        value += stock['shares'] * stock['price']
 
     return value
 
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfoliodate.csv'
+def main(args):
+    if len(args) != 2:
+        raise SystemExit(f'Usage: {args[0]} portfoliofile')
+    filename = args[1]
+    print('Total cost:', portfolio_cost(filename))
 
-cost = portfolio_cost(filename)
-print(f"Total cost {cost}")
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
