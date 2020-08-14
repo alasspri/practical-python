@@ -11,21 +11,21 @@ def read_portfolio(filename: str) -> list:
     Returns:
         list: dicts of the stocks
     """
-    portfolio = fileparse.parse_csv(filename,
-                                    select=['name', 'shares', 'price'],
-                                    types=[str, int, float])
-
-    return portfolio
+    with open(filename) as lines:
+        return fileparse.parse_csv(lines,
+                                   select=['name', 'shares', 'price'],
+                                   types=[str, int, float])
 
 
 def read_prices(filename):
     """
     Reads stock prices from a file
     """
-    prices = fileparse.parse_csv(filename,
-                                 has_headers=False,
-                                 types=[str, float])
-    return dict(prices)
+    with open(filename) as lines:
+        return dict(fileparse.parse_csv(lines,
+                                        has_headers=False,
+                                        types=[str, float]))
+
 
 
 def make_report(stocks, prices):
