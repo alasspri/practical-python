@@ -44,9 +44,13 @@ class HTMLTableFormatter(TableFormatter):
 
     def row(self, rowdata):
         print('<tr>', end='')
-        for row in rowdata:
-            print(f"<th>{row}</th>", end='')
+        for cell in rowdata:
+            print(f"<th>{cell}</th>", end='')
         print('</tr>')
+
+
+class FormatError(Exception):
+    pass
 
 
 def create_formatter(name):
@@ -57,4 +61,13 @@ def create_formatter(name):
     elif name == 'html':
         return HTMLTableFormatter()
     else:
-        raise RuntimeError(f"Unknown format {name}")
+        raise FormatError(f"Unknown format {name}")
+
+
+def print_table(rawdata, columns, formatter):
+    formatter.headings(columns)
+    for item in rawdata:
+        row = []
+        for colname in columns:
+            row.append(str(getattr(item, colname)))
+        formatter.row(row)

@@ -9,3 +9,6 @@ class Stock:
 
     def sell(self, number):
         self.shares -= number
+
+    def __repr__(self):
+        return f"Stock('{self.name}', {self.shares}, {self.price})"
