@@ -1,9 +1,6 @@
 # pcost.py
 #
-# Exercise 1.27
 from report import read_portfolio
-
-import sys
 
 
 def portfolio_cost(filename):
@@ -12,7 +9,7 @@ def portfolio_cost(filename):
     portfolio = read_portfolio(filename)
 
     for stock in portfolio:
-        value += stock['shares'] * stock['price']
+        value += stock.shares * stock.price
 
     return value
 
