@@ -1,11 +1,9 @@
 # report.py
 #
 # Exercise 2.4
-import fileparse
-
-import tableformat
-from stock import Stock
-from portfolio import Portfolio
+from . import fileparse
+from . import tableformat
+from .portfolio import Portfolio
 
 
 def read_portfolio(filename, **opts):
@@ -69,7 +67,7 @@ if __name__ == '__main__':
     import sys
     import logging
     logging.basicConfig(
-        filename='app.log',
+        filename='../../app.log',
         filemode='w',
         level=logging.DEBUG
     )

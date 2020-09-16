@@ -1,9 +1,9 @@
 #! python
 import csv
 
-from follow import follow
-from report import read_portfolio
-import tableformat
+from .follow import follow
+from .report import read_portfolio
+from . import tableformat
 
 
 def parse_stock_data(lines):
