@@ -8,10 +8,7 @@ def portfolio_cost(filename):
 
     portfolio = read_portfolio(filename)
 
-    for stock in portfolio:
-        value += stock.cost
-
-    return value
+    return portfolio.total_cost
 
 
 def main(args):
